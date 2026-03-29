@@ -251,3 +251,6 @@ Browser → http://localhost:5173/socket.io → Vite Proxy (ws) → http://local
 | Socket not connecting | Check Vite proxy is running; both servers must be started |
 | `alter: true` error on startup | Run `schema.sql` manually first, then restart backend |
 | `Cannot find module` error | Run `npm install` inside both `backend/` and `frontend/` directories |
+
+
+| To generate security key and secrect key go to this website https://www.google.com/recaptcha/admin
