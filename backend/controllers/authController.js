@@ -6,13 +6,11 @@ const registerSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
   role: Joi.string().valid('ADMIN', 'STUDENT', 'QUESTION_MANAGER').required(),
-  recaptchaToken: Joi.string().optional(),
 });
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-  recaptchaToken: Joi.string().optional(),
 });
 
 const register = async (req, res, next) => {

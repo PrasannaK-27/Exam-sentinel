@@ -1,7 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import ReCAPTCHA from 'react-google-recaptcha';
 import toast from 'react-hot-toast';
 import { Shield, Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 
@@ -9,7 +8,6 @@ const LoginPage = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
-  const recaptchaRef = useRef(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -17,15 +15,13 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const recaptchaToken = recaptchaRef.current?.getValue();
     setLoading(true);
     try {
-      const user = await login({ ...form, recaptchaToken });
+      const user = await login({ ...form });
       toast.success(`Welcome back, ${user.username}!`);
       navigate(ROLE_ROUTES[user.role] || '/');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
-      recaptchaRef.current?.reset();
     } finally {
       setLoading(false);
     }
@@ -92,14 +88,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* reCAPTCHA */}
-            <div className="flex justify-center">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
-                theme="dark"
-              />
-            </div>
+
 
             <button id="login-submit" type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2">
               {loading ? (

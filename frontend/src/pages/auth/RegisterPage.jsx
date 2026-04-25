@@ -1,6 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ReCAPTCHA from 'react-google-recaptcha';
 import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import { Shield, User, Mail, Lock, Eye, EyeOff, UserPlus, ChevronDown } from 'lucide-react';
@@ -15,20 +14,17 @@ const RegisterPage = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '', role: 'STUDENT' });
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
-  const recaptchaRef = useRef(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const recaptchaToken = recaptchaRef.current?.getValue();
     setLoading(true);
     try {
-      await api.post('/auth/register', { ...form, recaptchaToken });
+      await api.post('/auth/register', { ...form });
       toast.success('Account created! Please sign in.');
       navigate('/login');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
-      recaptchaRef.current?.reset();
     } finally {
       setLoading(false);
     }
@@ -93,13 +89,7 @@ const RegisterPage = () => {
               </div>
             </div>
 
-            <div className="flex justify-center">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
-                theme="dark"
-              />
-            </div>
+
 
             <button id="reg-submit" type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2">
               {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

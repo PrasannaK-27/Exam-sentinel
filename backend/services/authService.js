@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const { User } = require('../models');
 const { sendResetEmail } = require('../config/mailer');

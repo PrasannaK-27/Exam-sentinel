@@ -24,8 +24,6 @@ A full-stack proctored exam platform with real-time violation detection, live we
 - Node.js v18+
 - MySQL 8.0+
 - Gmail account with App Password enabled
-- Google reCAPTCHA v2 keys
-
 ---
 
 ## 🚀 Setup Instructions
@@ -88,9 +86,6 @@ SESSION_SECRET=change_this_to_a_long_random_string
 GMAIL_USER=your_gmail@gmail.com
 GMAIL_APP_PASSWORD=your_16_char_app_password
 
-RECAPTCHA_SITE_KEY=your_site_key
-RECAPTCHA_SECRET_KEY=your_secret_key
-
 FRONTEND_URL=http://localhost:5173
 PORT=5000
 NODE_ENV=development
@@ -98,9 +93,6 @@ NODE_ENV=development
 
 > **Gmail App Password**: Go to Google Account → Security → 2-Step Verification → App Passwords → Generate a 16-character password.
 
-> **reCAPTCHA**: Register at https://www.google.com/recaptcha/admin — choose reCAPTCHA v2 "I'm not a robot".
-
----
 
 ### Step 3 — Configure Frontend Environment
 
@@ -109,7 +101,6 @@ Edit `frontend\.env`:
 ```env
 VITE_API_URL=http://localhost:5000
 VITE_SOCKET_URL=http://localhost:5000
-VITE_RECAPTCHA_SITE_KEY=your_recaptcha_site_key
 ```
 
 ---
@@ -253,4 +244,3 @@ Browser → http://localhost:5173/socket.io → Vite Proxy (ws) → http://local
 | `Cannot find module` error | Run `npm install` inside both `backend/` and `frontend/` directories |
 
 
-| To generate security key and secrect key go to this website https://www.google.com/recaptcha/admin
